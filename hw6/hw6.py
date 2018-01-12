@@ -210,17 +210,17 @@ def visulize():
 
 
 def main():
-#images is a 140000 * 784(28*28) matrix
-	images_file = sys.argv[1]
-	images = np.load(images_file)
+	#images is a 140000 * 784(28*28) matrix
+	#images_file = sys.argv[1]
+	#images = np.load(images_file)
 
 	#see the image data
 	#np.set_printoptions(threshold = np.nan)
 	#np.savetxt("image.txt" , images[0:20])
 
 	#DNN autoendoer
-	encoding_dim = 32
-	reduc_Image = Do_DnnAutoencoder(images , encoding_dim)
+	#encoding_dim = 32
+	#reduc_Image = Do_DnnAutoencoder(images , encoding_dim)
 	#decoder = keras.models.load_model('encoder/dim32_decoder.h5')
 
 	'''
@@ -236,8 +236,10 @@ def main():
 
 	#clustering -> 
 	#K-means
-	n_clusters = 2
-	cluster = do_kmeans(reduc_Image , n_clusters)
+	#n_clusters = 2
+	#cluster = do_kmeans(reduc_Image , n_clusters)
+	#np.save("cluster.npy",cluster)
+	cluster = np.load("cluster.npy")
 
 	#read test data
 	filename = "data/test_case.csv"
@@ -249,8 +251,6 @@ def main():
 	#write_predict_cluster(filename , test_id , index1 , index2 , pixelCount)
 
 	#predict and write to result file
-	method = "mophan_deep_encoder_batch100"
-	filename = "result/%s_%d_Kmeans%d.csv" %(method , encoding_dim, n_clusters)
 	out_file = sys.argv[3]
 	write_predict_cluster(out_file , test_id , index1 , index2 , cluster)
 
